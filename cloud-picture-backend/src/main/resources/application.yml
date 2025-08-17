@@ -1,0 +1,67 @@
+server:
+  port: 8145
+  servlet:
+    context-path: /api
+    # cookie 30 天过期
+    session:
+      cookie:
+        max-age: 2592000
+# spring配置
+spring:
+  applicatinon:
+    name: cloud-picture-backend
+  #数据库配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/cloud_picture
+    username: root
+    password: 123456789
+  # Redis 配置
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    timeout: 5000
+  # Session 配置
+  session:
+    store-type: redis
+    # session 30 天后过期
+    timeout: 2592000
+  # 开放更大的文件上传体积
+  servlet:
+    multipart:
+      max-file-size: 10MB
+
+# mybatis-plus配置
+mybatis-plus:
+  configuration:
+    # MyBatis 配置
+    map-underscore-to-camel-case: false
+    # 仅在开发环境打印日志
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      #逻辑删除
+      logic-delete-field: isDeleted # 逻辑删除字段
+      logic-delete-value: 1 # 逻辑删除值（默认为1）
+      logic-not-delete-value: 0 # 逻辑未删除值（默认为0）
+# 接口文档配置
+knife4j:
+  # 启用 Knife4j 功能，如果设置为 false，则不会展示 Knife4j 的 API 文档界面
+  enable: true
+  openapi:
+    # API 文档的标题，会显示在文档页面的头部
+    title: interface-documentation
+    # 维护 API 文档的联系人邮箱
+    email: 15186698145@163.com
+    # 维护 API 文档的联系人姓名
+    concat: Muggleboy
+    # API 文档的版本号
+    version: v1.0
+    group:
+      default:
+        # API 扫描规则，这里设置为 package 表示按包路径进行扫描
+        api-rule: package
+        # 需要扫描的包路径，即该分组下包含哪些包中的 API 接口
+        api-rule-resources:
+          - com.muggle.cloudpicturebackend.controller
